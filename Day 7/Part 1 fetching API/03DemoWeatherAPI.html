@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Books Details</title>
+  </head>
+  <body>
+    <!-- <center>
+      <input type="button" value="Get Data" onclick="GetBooks()" />
+    </center> -->
+    <center>
+      <!-- Search Book: <input type="text" id="txtBook" /> -->
+      <input type="button" value="Get Weather" onclick="GetweatherDetails()" />
+      <hr />
+      <table border="1" style="width: 800px; text-align: center">
+        <thead>
+          <tr>
+            <th>CityName</th>
+            <th>CountryCode</th>
+            <th>ApproxTemp</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </center>
+
+    <script>
+      function GetweatherDetails() {
+        const data = null;
+
+        var helper = new XMLHttpRequest();
+        helper.onreadystatechange = () => {
+          if (helper.readyState == 4 && helper.status == 200) {
+		console.log(helper.responseText);
+    var weatherDataInString = helper.responseText;
+    var alldataInJSON = JSON.parse(weatherDataInString);
+    var weatherDetails = alldataInJSON.data;
+
+    var refToTableBody = document.getElementById("tableBody");
+            refToTableBody.innerHTML = "";
+
+            for (i = 0; i < weatherDetails.length; i++) {
+              var weatherDetails = weatherDetails[i];
+              var row = `<tr>
+                            <td>${weatherDetails.city_name}</td>
+                            <td>${weatherDetails.country_code}</td>
+                            <td>${weatherDetails.app_temp}</td>
+                            <td>${weatherDetails.lat}</td>
+                            <td>${weatherDetails.lon}</td>
+                        </tr>`;
+              refToTableBody.innerHTML = refToTableBody.innerHTML + row;
+            }
+
+
+	}
+};
+
+helper.open('GET', 'https://weatherbit-v1-mashape.p.rapidapi.com/current?lon=38.5&lat=-78.5&units=metric&lang=en');
+helper.setRequestHeader('x-rapidapi-key', '1d66788e64msh855567c3adbde6dp188a5cjsn8775adeb0f7c');
+helper.setRequestHeader('x-rapidapi-host', 'weatherbit-v1-mashape.p.rapidapi.com');
+
+helper.send(data);
+      }
+    </script>
+  </body>
+</html>
