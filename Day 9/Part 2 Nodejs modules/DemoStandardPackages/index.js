@@ -1,25 +1,25 @@
 //----------------------------------Async Read
 
-var fs = require('fs');
+// var fs = require('fs');
 
-console.log("Hi........");
+// console.log("Hi........");
 
-fs.readdir("c:\\DMC\\",(error, result)=>{
-            // console.log(error);
-            // console.log("-------")
-            // console.log(result);
+// fs.readdir("d:\\a\\b\\",(error, result)=>{
+//             // console.log(error);
+//             // console.log("-------")
+//             // console.log(result);
 
-            if(error==null)
-            {
+//             if(error==null)
+//             {
                 
-                for(i=0;i<result.length; i++)
-                {
-                    console.log(result[i]);
-                }
-            }
-        });
+//                 for(i=0;i<result.length; i++)
+//                 {
+//                     console.log(result[i]);
+//                 }
+//             }
+//         });
 
-console.log("Bye........");
+// console.log("Bye........");
 
 
 
@@ -32,7 +32,7 @@ console.log("Bye........");
 
 // console.log("Hi........");
 
-// var directoryContents = fs.readdirSync("c:\\DMC\\");
+// var directoryContents = fs.readdirSync("d:\\a\\");
 
 // for(i=0;i<directoryContents.length; i++)
 // {
@@ -47,7 +47,7 @@ console.log("Bye........");
 //-------------------------------------------
 
 
-//var os = require('os')
-// console.log(os);
+var os = require('os')
+console.log(os);
 // console.log(os.freemem());
 // console.log(os.arch())

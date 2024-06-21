@@ -1,3 +1,2 @@
-
-var mysql = require('mysql');
+ var mysql = require('mysql');
 console.log(mysql);

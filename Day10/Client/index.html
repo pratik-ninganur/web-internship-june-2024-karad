@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap.min.css" />
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <center>
+        <div class="table-responsive">
+          <table
+            id="myTableInputs"
+            class="table table-bordered"
+            style="text-align: center"
+            border="1"
+          >
+            <tr>
+              <td>No</td>
+              <td>
+                <input type="text" id="txtNo" />
+              </td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>
+                <input type="text" id="txtName" />
+              </td>
+            </tr>
+
+            <tr>
+              <td>Address</td>
+              <td>
+                <input type="text" id="txtAddress" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <button onclick="Add()" class="btn btn-success">
+                  Add Record
+                </button>
+
+                <button onclick="Update()" class="btn btn-info">
+                  Update Record
+                </button>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <button class="btn btn-primary" onclick="GetDataFromNodeServer()">
+          Get All Data
+        </button>
+        <hr />
+        <div class="table-responsive">
+          <table
+            id="myTable"
+            class="table table-bordered"
+            style="text-align: center"
+            border="1"
+          ></table>
+        </div>
+      </center>
+      <!-- <button class="btn btn-primary" onclick="GetDataFromNodeServer()">
+        Get All Data
+      </button> -->
+      <div id="responseContainer">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>No</th>
+              <th>Name</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+    </div>
+    
+    <script>
+      function GetDataFromNodeServer() {
+        var helper = new XMLHttpRequest();
+        helper.open("PUT", "http://127.0.0.1:9999/users");
+        helper.send();
+
+        helper.onload = function() {
+        if (helper.readyState == 4 && helper.status == 200) {
+       
+        
+            // Update the content div with the response
+            document.getElementById('responseContainer').innerHTML = helper.responseText;
+        
+      }
+      }
+        helper.onreadystatechange = () => {
+          if (helper.readyState == 4 && helper.status == 200) {
+             var users = JSON.parse(helper.responseText);
+             console.log(users)
+            var refToMyTable = document.getElementById("tableBody");
+            refToMyTable.innerHTML = users;
+            refToMyTable.innerHTML = "";
+
+            for (let i =  0; i < users.length; i++) {
+              var user = users[i];
+              var row = `<tr>
+                                    <td>${user.no}</td>
+                                    <td>${user.name}</td>
+                                    <td>${user.address}</td>
+                                    <td>
+                                       <button onclick="Edit()" class="btn btn-warning">
+                                        Edit
+                                       </button>
+                                    </td>
+                                    <td>
+                                       <button onclick="Delete()" class="btn btn-danger">
+                                        Remove
+                                       </button>
+                                    </td>
+                        </tr>`;
+                        refToMyTable.innerHTML = refToMyTable.innerHTML + row;
+
+            }
+          }
+
+
+        };
+        
+      
+      }
+      function Add() {
+        var refToTxtNo = document.getElementById("txtNo");
+        var refToTxtName = document.getElementById("txtName");
+        var refToTxtAddress = document.getElementById("txtAddress");
+
+        // Perform Validations Here...
+        // -------------------Code for Validation
+        // -------------------Code for Validation
+        // -------------------Code for Validation
+        // -------------------Code for Validation
+
+        var empToBeAdded = {
+          No: parseInt(refToTxtNo.value),
+          Name: refToTxtName.value,
+          Address: refToTxtAddress.value,
+        };
+        console.log("empToBeAdded: ",empToBeAdded);
+        console.log("json empToBeAdded: ",JSON.stringify(empToBeAdded));
+
+        var helper = new XMLHttpRequest();
+        helper.onreadystatechange = () => {
+          if (helper.readyState == 4 && helper.status == 200) {
+            var result = JSON.parse(helper.responseText);
+            if (result.affectedRows > 0) {
+              alert("Record added successfully");
+              GetDataFromNodeServer();
+            } else {
+              alert("something went wrong!");
+            }
+           ClearTextBoxes();
+          }
+        };
+        helper.open("POST", "http://127.0.0.1:9999/users");
+        helper.setRequestHeader("Content-Type", "text/json");
+        
+
+        var token = sessionStorage.getItem("token");
+        var authHeaderValue = "Bearer " + token;
+        helper.setRequestHeader("Authorization", authHeaderValue);
+       helper.setRequestHeader("Authorization", authHeaderValue);
+        helper.send(JSON.stringify(empToBeAdded));
+      }
+      GetDataFromNodeServer();
+    </script>
+  </body>
+</html>

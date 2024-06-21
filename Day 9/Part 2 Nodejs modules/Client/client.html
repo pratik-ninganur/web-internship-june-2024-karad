@@ -27,42 +27,44 @@
     </center>
     <script>
       function GetData() {
-        // var helper = new XMLHttpRequest();
-        // helper.onreadystatechange = () => {
-        //   if (helper.readyState == 4 && helper.status == 200) {
-        //     var data = JSON.parse(helper.responseText);
-        //     var refToTableBody = document.getElementById("tableBody");
-        //     for (i = 0; i < data.length; i++) {
-        //       var user = data[i];
-        //       var row = `<tr>
-        //                     <td>${user.id}</td>
-        //                     <td>${user.name}</td>
-        //                     <td>${user.email}</td>
-        //                 </tr>`;
-        //       refToTableBody.innerHTML = refToTableBody.innerHTML + row;
-        //       //console.log(user.No + user.Name + user.Address);
-        //     }
-        //   }
-        // };
-        // helper.open("GET", "http://127.0.0.1:5000/users");
-        // helper.send();
-
-        fetch("http://127.0.0.1:5000/users")
-          .then((res) => {
-            return res.json();
-          })
-          .then((users) => {
-            users.map((user) => {
-              var refToTableBody = document.getElementById("tableBody");
+        var helper = new XMLHttpRequest();
+        helper.onreadystatechange = () => {
+          if (helper.readyState == 4 && helper.status == 200) {
+            console.log(helper.responseText);
+            var data = JSON.parse(helper.responseText);
+            var refToTableBody = document.getElementById("tableBody");
+            for (i = 0; i < data.length; i++) {
+              var user = data[i];
               var row = `<tr>
-                            <td>${user.id}</td>
-                            <td>${user.name}</td>
-                            <td>${user.email}</td>
+                            <td>${user.No}</td>
+                            <td>${user.Name}</td>
+                            <td>${user.Address}</td>
                         </tr>`;
               refToTableBody.innerHTML = refToTableBody.innerHTML + row;
-            });
-          });
+              //console.log(user.No + user.Name + user.Address);
+            }
+          }
+        };
+        helper.open("GET", "http://127.0.0.1:9898/users");
+        helper.send();
       }
-    </script>
-  </body>
-</html>
+
+//         fetch("http://127.0.0.1:5000/users")
+//           .then((res) => {
+//             return res.json();
+//           })
+//           .then((users) => {
+//             users.map((user) => {
+//               var refToTableBody = document.getElementById("tableBody");
+//               var row = `<tr>
+//                             <td>${user.id}</td>
+//                             <td>${user.name}</td>
+//                             <td>${user.email}</td>
+//                         </tr>`;
+//               refToTableBody.innerHTML = refToTableBody.innerHTML + row;
+//             });
+//           });
+//       }
+//     </script>
+//   </body>
+// </html>

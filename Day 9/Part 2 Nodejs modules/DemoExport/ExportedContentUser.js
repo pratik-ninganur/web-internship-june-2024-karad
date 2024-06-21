@@ -1,6 +1,7 @@
 //---------Demo 5
 
 var mObject  = require('./ExportedContent');
+console.log(mObject);
 var result = mObject.Add(10,20);
 console.log(result);   
 
@@ -44,15 +45,15 @@ console.log(result);
 // var result = exportedContent(20,30);
 // console.log(result);
 
-//----------Demo 1
-// var SayHi = require('./ExportedContent')
-// //above statement is as good as:
+// ----------Demo 1
+//var SayHi = require('./ExportedContent')
+//above statement is as good as:
 
-// // var SayHi =  function ()
-// //             {
-// //                 console.log("hi");
-// //             }
+// var SayHi =  function ()
+//             {
+//                 console.log("hi");
+//             }
 
-// // console.log(SayHi);
+//console.log(SayHi);
 
-// SayHi();
+//SayHi();

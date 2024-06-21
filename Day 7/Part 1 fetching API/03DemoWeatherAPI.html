@@ -32,7 +32,7 @@
         var helper = new XMLHttpRequest();
         helper.onreadystatechange = () => {
           if (helper.readyState == 4 && helper.status == 200) {
-		console.log(helper.responseText);
+		console.log("** "+helper.responseText);
     var weatherDataInString = helper.responseText;
     var alldataInJSON = JSON.parse(weatherDataInString);
     var weatherDetails = alldataInJSON.data;
