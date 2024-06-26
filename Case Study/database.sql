@@ -1,10 +1,6 @@
---! DATABASE
-
 CREATE DATABASE IF NOT EXISTS MarkEntry;
 
 USE MarkEntry;
-
---! TABLES
 
 DROP TABLE IF EXISTS Courses;
 DROP TABLE IF EXISTS Subjects;
@@ -14,7 +10,6 @@ DROP TABLE IF EXISTS Staff;
 DROP TABLE IF EXISTS Students;
 DROP TABLE IF EXISTS MarkEntry;
 
---! SET CONSTRAINTS OFF
 SET FOREIGN_KEY_CHECKS = 0;
 
 SET FOREIGN_KEY_CHECKS = 1;
@@ -59,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Staff (
     email VARCHAR(255),
     password VARCHAR(255),
     role ENUM('staff', 'coordinator', 'admin') DEFAULT 'staff',
-    course_name VARCHAR(255),
+    course_name VARCHAR(255)
 );
 
 CREATE TABLE IF NOT EXISTS Students (
